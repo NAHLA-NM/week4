@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+        }
+        h2 {
+            color: #357abd;
+            text-align: center;
+            margin-top: 20px;
+        }
+        form {
+            background: white;
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 6px;
+            color: #333;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .method {
+            margin-bottom: 20px;
+        }
+        .method input {
+            width: auto;
+            margin-right: 8px;
+        }
+        button {
+            background-color: #357abd;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #285d8f;
+        }
+        button a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Payment Page</h2>
+
+<form action="thanks.html" method="post">
+    <div class="method">
+        <label><input type="radio" name="paymentMethod" value="card" required> Credit/Debit Card</label>
+        <div id="cardDetails" style="display:none;">
+            <label>Card Number</label>
+            <input type="text" name="cardNumber" placeholder="Enter card number">
+            <label>Expiry Date</label>
+            <input type="month" name="expiry">
+            <label>CVV</label>
+            <input type="password" name="cvv" placeholder="CVV">
+        </div>
+    </div>
+
+    <div class="method">
+        <label><input type="radio" name="paymentMethod" value="upi"> UPI</label>
+        <div id="upiDetails" style="display:none;">
+            <label>UPI ID</label>
+            <input type="text" name="upiId" placeholder="example@upi">
+        </div>
+    </div>
+
+    <div class="method">
+        <label><input type="radio" name="paymentMethod" value="netbanking"> Net Banking</label>
+        <div id="netDetails" style="display:none;">
+            <label>Bank</label>
+            <select name="bank">
+                <option value="">-- Select Bank --</option>
+                <option value="SBI">State Bank of India</option>
+                <option value="ICICI">ICICI Bank</option>
+                <option value="HDFC">HDFC Bank</option>
+                <option value="Axis">Axis Bank</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="method">
+        <label><input type="radio" name="paymentMethod" value="cod"> Cash on Delivery</label>
+    </div>
+
+    <button type="submit"><a href="thanks.html">Proceed to Pay</a></button>
+</form>
+
+<script>
+    const cardDetails = document.getElementById("cardDetails");
+    const upiDetails = document.getElementById("upiDetails");
+    const netDetails = document.getElementById("netDetails");
+
+    document.querySelectorAll('input[name="paymentMethod"]').forEach((radio) => {
+        radio.addEventListener("change", () => {
+            cardDetails.style.display = radio.value === "card" ? "block" : "none";
+            upiDetails.style.display = radio.value === "upi" ? "block" : "none";
+            netDetails.style.display = radio.value === "netbanking" ? "block" : "none";
+        });
+    });
+</script>
+
+</body>
+</html>

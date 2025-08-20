@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+    h2 {
+      text-align: center;
+      color: #357abd;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #357abd;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #285d8f;
+    }
+  </style>
+</head>
+<body>
+
+<form id="regForm" onsubmit="return validateForm()">
+  <h2>Registration Form</h2>
+
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" />
+  <div id="nameError" class="error"></div>
+
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" />
+  <div id="passwordError" class="error"></div>
+
+  <label for="email">E-mail:</label>
+  <input type="text" id="email" name="email" />
+  <div id="emailError" class="error"></div>
+
+  <label for="phone">Phone Number:</label>
+  <input type="text" id="phone" name="phone" />
+  <div id="phoneError" class="error"></div>
+
+  <button type="submit">Register</button>
+</form>
+
+<script>
+function validateForm() {
+  let valid = true;
+
+  // Clear old error messages
+  document.getElementById("nameError").innerText = "";
+  document.getElementById("passwordError").innerText = "";
+  document.getElementById("emailError").innerText = "";
+  document.getElementById("phoneError").innerText = "";
+
+  // Name validation
+  let name = document.getElementById("name").value.trim();
+  let nameRegex = /^[A-Za-z ]+$/;
+  if (name.length < 6 || !nameRegex.test(name)) {
+    document.getElementById("nameError").innerText = "Name must be at least 6 characters and contain only alphabets.";
+    valid = false;
+  }
+
+  // Password validation
+  let password = document.getElementById("password").value.trim();
+  if (password.length < 6) {
+    document.getElementById("passwordError").innerText = "Password must be at least 6 characters long.";
+    valid = false;
+  }
+
+  // Email validation
+  let email = document.getElementById("email").value.trim();
+  let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$/;
+  if (!emailRegex.test(email)) {
+    document.getElementById("emailError").innerText = "Please enter a valid email (example: name@domain.com).";
+    valid = false;
+  }
+
+  // Phone validation
+  let phone = document.getElementById("phone").value.trim();
+  let phoneRegex = /^[0-9]{10}$/;
+  if (!phoneRegex.test(phone)) {
+    document.getElementById("phoneError").innerText = "Phone number must be exactly 10 digits.";
+    valid = false;
+  }
+
+  return valid;
+}
+</script>
+
+</body>
+</html>

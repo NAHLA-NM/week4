@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+        }
+        table {
+            width: 90%;
+            margin: 40px auto;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #357abd;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f0f7ff;
+        }
+        .price {
+            font-weight: bold;
+            color: #333;
+        }
+        .total-row th {
+            text-align: right;
+            font-size: 18px;
+        }
+        .checkout-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #357abd;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .checkout-btn:hover {
+            background-color: #285d8f;
+        }
+        .remove-btn {
+            padding: 5px 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .remove-btn:hover {
+            background-color: darkred;
+        }
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<table id="cartTable">
+    <tr>
+        <th>Department</th>
+        <th>Book Title</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+        <th>Remove</th>
+    </tr>
+    <tr>
+        <td>CSE</td>
+        <td>XML Bible</td>
+        <td class="price">₹40.50</td>
+        <td><input type="number" value="1" min="1" onchange="updateAmount(this)"></td>
+        <td class="price">₹40.50</td>
+        <td><button class="remove-btn" onclick="removeItem(this)">Remove</button></td>
+    </tr>
+    <tr>
+        <td>ECE</td>
+        <td>Artificial Intelligence</td>
+        <td class="price">₹63.00</td>
+        <td><input type="number" value="2" min="1" onchange="updateAmount(this)"></td>
+        <td class="price">₹126.00</td>
+        <td><button class="remove-btn" onclick="removeItem(this)">Remove</button></td>
+    </tr>
+    <tr class="total-row">
+        <th colspan="4">Total</th>
+        <th class="price" id="totalAmount">₹166.50</th>
+        <th></th>
+    </tr>
+</table>
+
+<button class="checkout-btn" onclick="window.location.href='payment.html'">Proceed to Checkout</button>
+
+<script>
+    function updateAmount(input) {
+        const row = input.parentElement.parentElement;
+        const priceCell = row.cells[2];
+        const amountCell = row.cells[4];
+
+        let price = parseFloat(priceCell.innerText.replace('₹', ''));
+        let quantity = parseInt(input.value);
+
+        let newAmount = price * quantity;
+        amountCell.innerText = `₹${newAmount.toFixed(2)}`;
+
+        updateTotal();
+    }
+
+    function updateTotal() {
+        const table = document.getElementById('cartTable');
+        let total = 0;
+        for (let i = 1; i < table.rows.length - 1; i++) {
+            let amountText = table.rows[i].cells[4].innerText.replace('₹', '');
+            total += parseFloat(amountText);
+        }
+        document.getElementById('totalAmount').innerText = `₹${total.toFixed(2)}`;
+    }
+
+    function removeItem(button) {
+        const row = button.parentElement.parentElement;
+        row.remove();
+        updateTotal();
+    }
+</script>
+
+</body>
+</html>

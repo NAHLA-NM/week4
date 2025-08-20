@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookstore - Catalogue</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            padding: 20px;
+        }
+        h2 {
+            color: #357abd;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #357abd;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f0f7ff;
+        }
+        img {
+            width: 60px;
+            height: auto;
+            border-radius: 4px;
+        }
+        .price {
+            font-weight: bold;
+            color: #333;
+        }
+        button {
+            padding: 6px 10px;
+            background-color: #357abd;
+            color: white;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #285d8f;
+        }
+    </style>
+    <script>
+        function addToCart(title, author, publisher, price, image) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push({ title, author, publisher, price, image });
+            localStorage.setItem("cart", JSON.stringify(cart));
+            window.parent.frames['mainFrame'].location.href = 'cart.html';
+        }
+    </script>
+</head>
+<body>
+    <h2>Book Catalogue</h2>
+    <table>
+        <tr>
+            <th>Cover</th>
+            <th>Book Title</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td><img src="xml.jpg" alt="XML Bible"></td>
+            <td>XML Bible</td>
+            <td>Winston</td>
+            <td>Wiley</td>
+            <td class="price">₹40.50</td>
+            <td><button onclick="addToCart('XML Bible', 'Winston', 'Wiley', '₹40.50', 'xml.jpg')">Add to Cart</button></td>
+        </tr>
+        <tr>
+            <td><img src="ai.jpg" alt="AI Book"></td>
+            <td>Artificial Intelligence</td>
+            <td>S. Russel</td>
+            <td>Princeton Hall</td>
+            <td class="price">₹63.00</td>
+            <td><button onclick="addToCart('Artificial Intelligence', 'S. Russel', 'Princeton Hall', '₹63.00', 'ai.jpg')">Add to Cart</button></td>
+        </tr>
+        <tr>
+            <td><img src="java.jpg" alt="Java 2"></td>
+            <td>Java 2</td>
+            <td>Watson</td>
+            <td>BPB Publications</td>
+            <td class="price">₹35.50</td>
+            <td><button onclick="addToCart('Java 2', 'Watson', 'BPB Publications', '₹35.50', 'java.jpg')">Add to Cart</button></td>
+        </tr>
+        <tr>
+            <td><img src="html2.jpg" alt="HTML in 24 Hours"></td>
+            <td>HTML in 24 Hours</td>
+            <td>Sam Peter</td>
+            <td>Sam Publications</td>
+            <td class="price">₹50.00</td>
+            <td><button onclick="addToCart('HTML in 24 Hours', 'Sam Peter', 'Sam Publications', '₹50.00', 'html2.jpg')">Add to Cart</button></td>
+        </tr>
+    </table>
+</body>
+</html>

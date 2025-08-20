@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Bookstore - Home</title>
+    <style>
+        /* Frameset styling doesn't apply directly to frames, but we can style pages loaded in them */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        /* Optional background for browsers that don't support frames */
+        .no-frames {
+            padding: 20px;
+            text-align: center;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<frameset rows="120px, *" border="0">
+    <!-- Top frame for logo & navigation -->
+    <frame src="top.html" name="topFrame" scrolling="no" noresize>
+
+    <frameset cols="200px, *" border="0">
+        <!-- Left navigation frame -->
+        <frame src="left.html" name="leftFrame" scrolling="auto" noresize>
+        
+        <!-- Right main content frame -->
+        <frame src="right.html" name="mainFrame" scrolling="auto">
+    </frameset>
+
+    <noframes>
+        <body>
+            <div class="no-frames">
+                <h1>Online Bookstore</h1>
+                <p>Your browser does not support frames. Please update to view this website.</p>
+            </div>
+        </body>
+    </noframes>
+</frameset>
+</html>
