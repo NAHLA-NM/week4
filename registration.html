@@ -17,7 +17,7 @@
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 350px;
+      width: 400px;
     }
     h2 {
       text-align: center;
@@ -28,12 +28,20 @@
       margin-top: 10px;
       font-weight: bold;
     }
-    input {
+    input, select, textarea {
       width: 100%;
       padding: 8px;
       margin-top: 5px;
       border: 1px solid #ccc;
       border-radius: 4px;
+    }
+    textarea {
+      resize: vertical;
+    }
+    .gender-options {
+      display: flex;
+      gap: 15px;
+      margin-top: 5px;
     }
     .error {
       color: red;
@@ -76,6 +84,38 @@
   <input type="text" id="phone" name="phone" />
   <div id="phoneError" class="error"></div>
 
+  <label>Gender:</label>
+  <div class="gender-options">
+    <label><input type="radio" name="gender" value="Male"> Male</label>
+    <label><input type="radio" name="gender" value="Female"> Female</label>
+    <label><input type="radio" name="gender" value="Other"> Other</label>
+  </div>
+  <div id="genderError" class="error"></div>
+
+  <label for="dob">Date of Birth:</label>
+  <input type="date" id="dob" name="dob" />
+  <div id="dobError" class="error"></div>
+
+  <label for="department">Department:</label>
+  <select id="department" name="department">
+    <option value="">-- Select Department --</option>
+    <option value="CSE">CSE</option>
+    <option value="ECE">ECE</option>
+    <option value="IT">IT</option>
+    <option value="ME">Mechanical</option>
+    <option value="CE">Civil</option>
+  </select>
+  <div id="departmentError" class="error"></div>
+
+  <label for="address">Address:</label>
+  <textarea id="address" name="address" rows="3"></textarea>
+  <div id="addressError" class="error"></div>
+
+  <label>
+    <input type="checkbox" id="terms" name="terms"> I agree to the Terms & Conditions
+  </label>
+  <div id="termsError" class="error"></div>
+
   <button type="submit">Register</button>
 </form>
 
@@ -83,40 +123,72 @@
 function validateForm() {
   let valid = true;
 
-  // Clear old error messages
-  document.getElementById("nameError").innerText = "";
-  document.getElementById("passwordError").innerText = "";
-  document.getElementById("emailError").innerText = "";
-  document.getElementById("phoneError").innerText = "";
+  // Clear errors
+  document.querySelectorAll(".error").forEach(el => el.innerText = "");
 
-  // Name validation
+  // Name
   let name = document.getElementById("name").value.trim();
   let nameRegex = /^[A-Za-z ]+$/;
   if (name.length < 6 || !nameRegex.test(name)) {
-    document.getElementById("nameError").innerText = "Name must be at least 6 characters and contain only alphabets.";
+    document.getElementById("nameError").innerText = "Name must be at least 6 characters and alphabets only.";
     valid = false;
   }
 
-  // Password validation
+  // Password
   let password = document.getElementById("password").value.trim();
   if (password.length < 6) {
-    document.getElementById("passwordError").innerText = "Password must be at least 6 characters long.";
+    document.getElementById("passwordError").innerText = "Password must be at least 6 characters.";
     valid = false;
   }
 
-  // Email validation
+  // Email
   let email = document.getElementById("email").value.trim();
   let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$/;
   if (!emailRegex.test(email)) {
-    document.getElementById("emailError").innerText = "Please enter a valid email (example: name@domain.com).";
+    document.getElementById("emailError").innerText = "Enter a valid email (name@domain.com).";
     valid = false;
   }
 
-  // Phone validation
+  // Phone
   let phone = document.getElementById("phone").value.trim();
   let phoneRegex = /^[0-9]{10}$/;
   if (!phoneRegex.test(phone)) {
-    document.getElementById("phoneError").innerText = "Phone number must be exactly 10 digits.";
+    document.getElementById("phoneError").innerText = "Phone must be exactly 10 digits.";
+    valid = false;
+  }
+
+  // Gender
+  let gender = document.querySelector('input[name="gender"]:checked');
+  if (!gender) {
+    document.getElementById("genderError").innerText = "Please select a gender.";
+    valid = false;
+  }
+
+  // DOB
+  let dob = document.getElementById("dob").value;
+  if (dob === "") {
+    document.getElementById("dobError").innerText = "Please select your date of birth.";
+    valid = false;
+  }
+
+  // Department
+  let dept = document.getElementById("department").value;
+  if (dept === "") {
+    document.getElementById("departmentError").innerText = "Please select a department.";
+    valid = false;
+  }
+
+  // Address
+  let address = document.getElementById("address").value.trim();
+  if (address.length < 10) {
+    document.getElementById("addressError").innerText = "Address must be at least 10 characters.";
+    valid = false;
+  }
+
+  // Terms
+  let terms = document.getElementById("terms").checked;
+  if (!terms) {
+    document.getElementById("termsError").innerText = "You must agree to the Terms & Conditions.";
     valid = false;
   }
 
